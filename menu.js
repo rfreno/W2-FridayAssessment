@@ -199,12 +199,15 @@ const filteredFood = foodArr.filter(item => item.tags.includes('gluten-free'))
     
     Return the filtered array from the entire function
 */
-function filterByProperty(property,number,type) {
+function filterByProperty(property, number,type) {
+
     let filteredMenu = []
-    if (type === 'above') {
-        filteredMenu = foodArr.filter(item => item.property > number)
+    if (property === 'price') {
+        filteredMenu = foodArr.filter(item => {if (type === 'above') { return item.price > number } else {return item.price <= number}})
+    } else if (property === 'rating') {
+        filteredMenu = foodArr.filter(item => {if (type === 'above') { return item.rating > number } else {return item.rating <= number}})
     } else {
-        filteredMenu = foodArr.filter(item => item.property <= number)
+        filteredMenu = foodArr.filter(item => {if (type === 'above') { return item.popularity > number } else {return item.popularity <= number}})
     }
     return filteredMenu
 }
@@ -216,4 +219,8 @@ function filterByProperty(property,number,type) {
     You'll have to console.log to see the filtered array
 */
 
-console.log(filterByProperty('rating', 3, 'above'))
+console.log(filterByProperty('popularity', 7, 'above'))
+
+
+// NOTE
+// I don't think the function above is formatted quite how the problem outlined it, but in all of my previous attempts, I couldn't get "item.property" to reference the passed-in property.
